@@ -1,48 +1,501 @@
+watsapp+telegram button
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#020617">
+<title>Mr Bablu</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<!-- 1. Disable DevTool Library -->
+<script disable-devtool-auto src='https://cdn.jsdelivr.net/npm/disable-devtool@latest'></script>
+
+<!-- HLS Player Library -->
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+<style>
+body {
+background-color: #0b0e14;
+color: #e2e8f0;
+font-family: 'Inter', sans-serif;
+min-height: 100vh;
+user-select: none; /* Text select disable */
+}
+
+.player-outer-frame {
+background: #020617;
+border: 1px solid rgba(255, 255, 255, 0.1);
+border-radius: 1.25rem;
+padding: 12px;
+box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.video-container {
+background: #000;
+border-radius: 0.75rem;
+position: relative;
+overflow: hidden;
+border: 1px solid rgba(255, 255, 255, 0.05);
+aspect-ratio: 16/9;
+width: 100%;
+}
+
+#main-video {
+width: 100%;
+height: 100%;
+object-fit: contain;
+}
+
+.social-bar {
+background: rgba(15, 23, 42, 0.8);
+border: 1px solid rgba(255, 255, 255, 0.1);
+border-radius: 1rem;
+}
+
+.live-tag {
+background: #dc2626;
+animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+0%, 100% { opacity: 1; }
+50% { opacity: .7; }
+}
+</style>
+</head>
+
+<body class="flex flex-col items-center p-4" oncontextmenu="return false;">
+
+<!-- Header -->
+<header class="w-full max-w-4xl flex justify-between items-center py-4 mb-4">
+<div class="flex items-center gap-2">
+<div class="bg-white rounded-full p-1 flex items-center justify-center h-8 w-8">
+<i class="fas fa-play text-blue-900 text-xs"></i>
+</div>
+<span class="text-xl font-bold tracking-tight text-blue-400">Mr Bablu</span>
+</div>
+<div class="bg-blue-900/30 border border-blue-500/30 px-4 py-1.5 rounded-full text-[10px] text-blue-300">
+<i class="fas fa-satellite-dish mr-2 animate-pulse"></i> B4U MUSIC LIVE
+</div>
+</header>
+
+<main class="w-full max-w-4xl space-y-6">
+<div class="player-outer-frame">
+<div class="video-container">
+<div class="absolute top-4 left-4 z-10 flex items-center gap-2 pointer-events-none">
+<span class="live-tag text-white text-[10px] font-black px-2 py-0.5 rounded uppercase">Live</span>
+<span class="text-white/90 text-sm font-semibold shadow-sm">B4U Music HD</span>
+</div>
+<video id="main-video" controls autoplay muted playsinline></video>
+</div>
+</div>
+
+<div class="social-bar p-4 flex flex-col md:flex-row items-center justify-between gap-4">
+<h3 class="font-bold text-white">Join Our Community</h3>
+<div class="flex items-center gap-3 w-full md:w-auto">
+<a href="https://t.me/vmpaidcoursess" class="flex-1 md:flex-none flex items-center justify-center gap-2 bg-[#2e426b] text-white py-2.5 px-6 rounded-lg font-semibold text-sm">
+<i class="fab fa-telegram-plane"></i> Telegram
+</a>
+<a href="https://whatsapp.com/channel/0029VaNMgXx8qIzrXNP1wB18" class="flex-1 md:flex-none flex items-center justify-center gap-2 bg-[#244c3c] text-white py-2.5 px-6 rounded-lg font-semibold text-sm">
+<i class="fab fa-whatsapp"></i> WhatsApp
+</a>
+</div>
+</div>
+</main>
+
+<script>
+// --- 2. Security: Block Shortcuts ---
+document.onkeydown = function(e) {
+if (e.keyCode == 123) { return false; } // F12
+if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) { return false; } // Ctrl+Shift+I
+if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) { return false; } // Ctrl+Shift+C
+if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) { return false; } // Ctrl+Shift+J
+if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) { return false; } // Ctrl+U (Source)
+};
+
+// --- HLS Player Logic ---
+const video = document.getElementById('main-video');
+const videoSrc = 'https://cdnb4u.wiseplayout.com/B4U_Music/master.m3u8';
+
+if (Hls.isSupported()) {
+const hls = new Hls();
+hls.loadSource(videoSrc);
+hls.attachMedia(video);
+hls.on(Hls.Events.MANIFEST_PARSED, function() {
+video.play();
+});
+} else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+video.src = videoSrc;
+video.addEventListener('loadedmetadata', function() {
+video.play();
+});
+}
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+popup join button
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>HLS Video Player</title>
-  <style>
-    body {
-      margin: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background-color: #000;
-    }
-    video {
-      width: 80%;
-      max-width: 1080px;
-      height: auto;
-      outline: none;
-    }
-  </style>
-  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="@Mr Bablu">
+<meta name="theme-color" content="#ffffff">
+
+<title>Mr Bablu</title>
+
+<!-- Shaka Player -->
+<script
+src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.7.11/shaka-player.ui.min.js"
+crossorigin="anonymous">
+</script>
+
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.7.11/controls.min.css"
+crossorigin="anonymous"
+>
+
+<!-- Fonts & Icons -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap"
+rel="stylesheet"
+>
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+>
+
+<!-- Force Text Selection -->
+<style>
+* {
+user-select: auto !important;
+-webkit-user-select: auto !important;
+}
+</style>
+
+<!-- Main Styles -->
+<style>
+:root {
+--bg-deep: #f8fafc;
+--bg-gradient: linear-gradient(to bottom, #ffffff 0%, #f1f5f9 100%);
+--glass-bg: rgba(255, 255, 255, 0.75);
+--glass-border: rgba(0, 0, 0, 0.08);
+--glass-blur: blur(20px);
+--glass-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.08);
+--accent-primary: #3b82f6;
+--accent-glow: rgba(59, 130, 246, 0.25);
+--accent-gradient: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+--text-primary: #1e293b;
+--text-secondary: #64748b;
+--danger: #ef4444;
+--danger-glow: rgba(239, 68, 68, 0.2);
+--success: #10b981;
+}
+
+* {
+box-sizing: border-box;
+margin: 0;
+padding: 0;
+}
+
+body {
+font-family: 'Outfit', sans-serif;
+background: var(--bg-gradient);
+color: var(--text-primary);
+min-height: 100vh;
+display: flex;
+justify-content: center;
+padding: 1.5rem;
+}
+
+body::before {
+content: '';
+position: fixed;
+inset: -50% 0 0 0;
+background: radial-gradient(
+circle at center,
+rgba(59, 130, 246, 0.05) 0%,
+transparent 60%
+);
+z-index: -1;
+}
+
+.container {
+width: 100%;
+max-width: 1100px;
+animation: slideUpFade 0.8s ease forwards;
+}
+
+@keyframes slideUpFade {
+from { opacity: 0; transform: translateY(30px); }
+to { opacity: 1; transform: translateY(0); }
+}
+
+.stream-header {
+background: var(--glass-bg);
+backdrop-filter: var(--glass-blur);
+border: 1px solid var(--glass-border);
+border-radius: 16px;
+padding: 1rem 2rem;
+display: flex;
+justify-content: space-between;
+align-items: center;
+box-shadow: var(--glass-shadow);
+margin-bottom: 1.5rem;
+}
+
+.live-badge {
+background: rgba(239, 68, 68, 0.1);
+color: #dc2626;
+padding: 0.4rem 1rem;
+border-radius: 30px;
+font-weight: 700;
+display: flex;
+align-items: center;
+gap: 0.5rem;
+}
+
+#player-container {
+aspect-ratio: 16 / 9;
+background: #000;
+border-radius: 16px;
+overflow: hidden;
+box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+}
+
+iframe {
+width: 100%;
+height: 100%;
+border: none;
+}
+
+.grid-panels {
+margin-top: 2rem;
+display: grid;
+gap: 1.5rem;
+grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.info-card {
+background: var(--glass-bg);
+border: 1px solid var(--glass-border);
+border-radius: 16px;
+padding: 1.5rem;
+text-align: center;
+box-shadow: var(--glass-shadow);
+}
+
+.action-button {
+margin-top: 1rem;
+display: flex;
+justify-content: center;
+gap: 0.75rem;
+padding: 1rem;
+background: var(--accent-gradient);
+color: #fff;
+border-radius: 12px;
+font-weight: 600;
+text-decoration: none;
+border: none;
+cursor: pointer;
+}
+
+.telegram-popup {
+position: fixed;
+inset: 0;
+display: flex;
+justify-content: center;
+align-items: center;
+background: rgba(0,0,0,0.3);
+z-index: 10000;
+}
+
+.telegram-popup > div {
+background: #fff;
+padding: 2rem;
+border-radius: 20px;
+max-width: 400px;
+text-align: center;
+}
+</style>
 </head>
+
 <body>
-  <video id="videoPlayer" controls></video>
-  <script>
-    const videoSrc = "https://cdn30091.hurry379dec.com/stream2/i-cdn-0/65378e35ef83d2a0357481fbe8948b6d/MJTMsp1RshGTygnMNRUR2N2MSlnWXZEdMNDZzQWe5MDZzMmdZJTO1R2RWVHZDljekhkSsl1VwYnWtx2cihVT2p1VJFzTUVFeNpXV55kMaxmWUdmMNRlUq5kaJBzTEZlaNRURw40VKtmTtlVP:1758742005:152.59.168.132:1124a5dd4dd0429b859abb0e0f0d43ec7737acb2d06d34f6d7ec0793951679c2/1080/index.m3u8";
+<main class="container">
+<div class="stream-header">
+<h1>Cricinsider365</h1>
+<span class="live-badge">
+<i class="fa-solid fa-circle"></i> LIVE NOW
+</span>
+</div>
 
-    const video = document.getElementById('videoPlayer');
+<div id="player-container">
+<iframe
+src="https://mr-bablu-is-live.netlify.app/"
+allow="encrypted-media; autoplay"
+allowfullscreen>
+</iframe>
+</div>
 
-    if (Hls.isSupported()) {
-      const hls = new Hls();
-      hls.loadSource(videoSrc);
-      hls.attachMedia(video);
-      hls.on(Hls.Events.MANIFEST_PARSED, () => {
-        video.play();
-      });
-    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-      video.src = videoSrc;
-      video.addEventListener('loadedmetadata', () => {
-        video.play();
-      });
-    } else {
-      document.body.innerHTML = "<p>Sorry, your browser does not support HLS.</p>";
-    }
-  </script>
+<div class="grid-panels">
+<div class="info-card">
+<h2>📣 Follow us for updates</h2>
+<a
+href="https://t.me/vmpaidcoursess"
+target="_blank"
+class="action-button">
+<i class="fa-brands fa-telegram"></i> Join Telegram
+</a>
+</div>
+
+<div class="info-card">
+<h2><i class="fa-solid fa-share-nodes"></i> Share Stream</h2>
+<button class="action-button" id="shareButton">
+Share This Page ❤️
+</button>
+</div>
+</div>
+</main>
+
+<script
+<script>
+// alert('Join Our Telegram For More Live Links')
+if (confirm("Join Our Telegram Channel @couple365") == true) {
+window.open("https://t.me/vmpaidcoursess", '_blank');
+}
+</script>
+</body>
+</htm
+
+
+
+
+
+
+  
+
+full page live stream
+
+
+  
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mr Bablu</title>
+
+<!-- DevTool Disable Library full page Bablu -->
+<script disable-devtool-auto src='https://cdn.jsdelivr.net/npm/disable-devtool@latest'></script>
+
+<!-- HLS Player Library Live Stream Player-->
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+<style>
+body, html {
+margin: 0;
+padding: 0;
+width: 100%;
+height: 100%;
+overflow: hidden;
+background-color: #000;
+}
+
+.container {
+width: 100vw;
+height: 100vh;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+video {
+width: 100%;
+height: 100%;
+object-fit: contain; /* Video ratio maintain rakhega aur frame me fit rahega */
+outline: none;
+}
+
+/* Copy block karne ke liye */
+* {
+-webkit-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+user-select: none;
+-webkit-touch-callout: none;
+}
+</style>
+</head>
+<body oncontextmenu="return false;">
+
+<div class="container">
+<video id="video" controls autoplay muted playsinline></video>
+</div>
+
+<script>
+// --- Keyboard Security ---
+document.onkeydown = function(e) {
+if (e.keyCode == 123) return false; // F12
+if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) return false;
+if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) return false;
+if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) return false;
+if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false;
+};
+
+// --- HLS Logic ---
+const video = document.getElementById('video');
+const source = 'https://cdnb4u.wiseplayout.com/B4U_Music/master.m3u8';
+
+if (Hls.isSupported()) {
+const hls = new Hls();
+hls.loadSource(source);
+hls.attachMedia(video);
+hls.on(Hls.Events.MANIFEST_PARSED, function() {
+video.play();
+});
+}
+else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+video.src = source;
+video.addEventListener('loadedmetadata', function() {
+video.play();
+});
+}
+</script>
 </body>
 </html>
